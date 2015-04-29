@@ -38,15 +38,5 @@ RSpec.feature "UsersLogin", type: :feature do
     expect(page).to have_no_link nil, href: user_path(@user)
   end
 
-  # Convert later
-  xspecify "login with remembering" do
-    log_in_as(@user, remember_me: '1')
-    assert_not_nil cookies['remember_token']
-  end
-
-  # Convert later
-  xspecify "login without remembering" do
-    log_in_as(@user, remember_me: '0')
-    assert_nil cookies['remember_token']
-  end
+  # NOTE login with/without remembering tests are in sessions_controller_spec
 end
