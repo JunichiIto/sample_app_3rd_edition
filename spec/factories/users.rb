@@ -1,5 +1,16 @@
 FactoryGirl.define do
   factory :user do
+    sequence :name do |n|
+      "User #{n}"
+    end
+    sequence :email do |n|
+      "user-#{n}@example.com"
+    end
+    password 'password'
+    password_confirmation 'password'
+    activated true
+    activated_at Time.zone.now
+
     factory :michael do
       name 'Michael Example'
       email 'michael@example.com'
