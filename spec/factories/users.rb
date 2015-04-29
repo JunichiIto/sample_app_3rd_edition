@@ -48,5 +48,13 @@ FactoryGirl.define do
         end
       end
     end
+
+    factory :mallory do
+      name 'Mallory Archer'
+      email 'boss@example.gov'
+      password_digest User.digest('password')
+      activated true
+      activated_at Time.zone.now
+    end
   end
 end
