@@ -37,6 +37,7 @@ group :test do
   gem 'guard-minitest',     '2.3.1'
 
   gem 'database_cleaner', '1.4.1'
+  gem 'capybara', '2.4.4'
 end
 
 group :production do
