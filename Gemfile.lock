@@ -66,6 +66,7 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     columnize (0.9.0)
+    database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
@@ -284,6 +285,7 @@ DEPENDENCIES
   byebug (= 3.4.0)
   carrierwave (= 0.10.0)
   coffee-rails (= 4.1.0)
+  database_cleaner (= 1.4.1)
   factory_girl_rails (= 4.5.0)
   faker (= 1.4.2)
   fog (= 1.23.0)
