@@ -79,9 +79,16 @@ RSpec.describe User, type: :model do
   end
   
   specify 'feed should have the right posts' do
-    michael = FactoryGirl.create :michael
-    archer = FactoryGirl.create :archer
-    lana = FactoryGirl.create :lana
+    michael = FactoryGirl.create :michael_with_microposts
+    archer = FactoryGirl.create :archer_with_microposts
+    lana = FactoryGirl.create :lana_with_microposts
+
+    michael.follow(lana)
+    archer.follow(michael)
+
+    expect(michael.microposts.count).to be > 0
+    expect(archer.microposts.count).to be > 0
+    expect(lana.microposts.count).to be > 0
 
     lana.microposts.each do |post_following|
       expect(michael.feed.include?(post_following)).to be_truthy
