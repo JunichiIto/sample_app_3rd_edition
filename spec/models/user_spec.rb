@@ -61,41 +61,38 @@ RSpec.describe User, type: :model do
     expect(@user.authenticated?(:remember, '')).to be_falsey
   end
 
-  # TODO Convert later
-  # test 'associated microposts should be destroyed' do
-  #   @user.save
-  #   @user.microposts.create!(content: 'Lorem ipsum')
-  #   assert_difference 'Micropost.count', -1 do
-  #     @user.destroy
-  #   end
-  # end
-  #
-  # test 'should follow and unfollow a user' do
-  #   michael = users(:michael)
-  #   archer = users(:archer)
-  #   assert_not michael.following?(archer)
-  #   michael.follow(archer)
-  #   assert michael.following?(archer)
-  #   assert archer.followers.include?(michael)
-  #   michael.unfollow(archer)
-  #   assert_not michael.following?(archer)
-  # end
-  #
-  # test 'feed should have the right posts' do
-  #   michael = users(:michael)
-  #   archer = users(:archer)
-  #   lana = users(:lana)
-  #
-  #   lana.microposts.each do |post_following|
-  #     assert michael.feed.include?(post_following)
-  #   end
-  #
-  #   michael.microposts.each do |post_self|
-  #     assert michael.feed.include?(post_self)
-  #   end
-  #
-  #   archer.microposts.each do |post_unfollowed|
-  #     assert_not michael.feed.include?(post_unfollowed)
-  #   end
-  # end
+  specify 'associated microposts should be destroyed' do
+    @user.save
+    @user.microposts.create!(content: 'Lorem ipsum')
+    expect { @user.destroy }.to change { Micropost.count }.by(-1)
+  end
+  
+  specify 'should follow and unfollow a user' do
+    michael = FactoryGirl.create :michael
+    archer = FactoryGirl.create :archer
+    expect(michael.following?(archer)).to be_falsey
+    michael.follow(archer)
+    expect(michael.following?(archer)).to be_truthy
+    expect(archer.followers.include?(michael)).to be_truthy
+    michael.unfollow(archer)
+    expect(michael.following?(archer)).to be_falsey
+  end
+  
+  specify 'feed should have the right posts' do
+    michael = FactoryGirl.create :michael
+    archer = FactoryGirl.create :archer
+    lana = FactoryGirl.create :lana
+
+    lana.microposts.each do |post_following|
+      expect(michael.feed.include?(post_following)).to be_truthy
+    end
+  
+    michael.microposts.each do |post_self|
+      expect(michael.feed.include?(post_self)).to be_truthy
+    end
+  
+    archer.microposts.each do |post_unfollowed|
+      expect(michael.feed.include?(post_unfollowed)).to be_falsey
+    end
+  end
 end
