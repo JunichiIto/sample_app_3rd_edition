@@ -37,12 +37,7 @@ RSpec.feature "Following", type: :feature do
     expect { click_button 'Follow' }.to change { @user.following.count }.by(1)
   end
 
-  # Convert later
-  xspecify "should follow a user with Ajax" do
-    assert_difference '@user.following.count', 1 do
-      xhr :post, relationships_path, followed_id: @other.id
-    end
-  end
+  # NOTE "should follow a user with Ajax" is tested in relationships_controller_spec
 
   specify "should unfollow a user the standard way" do
     @user.follow(@other)
@@ -50,12 +45,5 @@ RSpec.feature "Following", type: :feature do
     expect { click_button 'Unfollow' }.to change { @user.following.count }.by(-1)
   end
 
-  # Convert later
-  xspecify "should unfollow a user with Ajax" do
-    @user.follow(@other)
-    relationship = @user.active_relationships.find_by(followed_id: @other.id)
-    assert_difference '@user.following.count', -1 do
-      xhr :delete, relationship_path(relationship)
-    end
-  end
+  # NOTE "should unfollow a user with Ajax" is tested in relationships_controller_spec
 end
