@@ -45,13 +45,12 @@ RSpec.describe User, type: :model do
     end
   end
 
-  # TODO Convert later
-  # specify 'email addresses should be unique' do
-  #   duplicate_user = @user.dup
-  #   duplicate_user.email = @user.email.upcase
-  #   @user.save
-  #   expect(@user.valid?).to be_falsey
-  # end
+  specify 'email addresses should be unique' do
+    duplicate_user = @user.dup
+    duplicate_user.email = @user.email.upcase
+    @user.save
+    expect(duplicate_user.valid?).to be_falsey
+  end
 
   specify 'password should have a minimum length' do
     @user.password = @user.password_confirmation = 'a' * 5
