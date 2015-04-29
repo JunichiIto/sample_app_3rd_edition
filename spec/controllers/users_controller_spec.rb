@@ -28,14 +28,14 @@ RSpec.describe UsersController, type: :controller do
     expect(response).to redirect_to login_url
   end
 
-  xspecify "should redirect edit when logged in as wrong user" do
+  specify "should redirect edit when logged in as wrong user" do
     log_in_as(@other_user)
     get :edit, id: @user
     expect(flash.empty?).to be_truthy
     expect(response).to redirect_to root_url
   end
 
-  xspecify "should redirect update when logged in as wrong user" do
+  specify "should redirect update when logged in as wrong user" do
     log_in_as(@other_user)
     patch :update, id: @user, user: { name: @user.name, email: @user.email }
     expect(flash.empty?).to be_truthy
@@ -47,7 +47,7 @@ RSpec.describe UsersController, type: :controller do
     expect(response).to redirect_to login_url
   end
 
-  xspecify "should redirect destroy when logged in as a non-admin" do
+  specify "should redirect destroy when logged in as a non-admin" do
     log_in_as(@other_user)
     expect { delete :destroy, id: @user }.to_not change { User.count }
     expect(response).to redirect_to root_url
