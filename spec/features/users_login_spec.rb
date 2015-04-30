@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "UsersLogin", type: :feature do
-  let(:user) { create :michael }
+  given(:user) { create :michael }
 
-  specify "login with invalid information" do
+  scenario "login with invalid information" do
     visit login_path
     expect(page).to have_selector 'h1', text: 'Log in'
     fill_in 'Email', with: ""
@@ -15,7 +15,7 @@ RSpec.feature "UsersLogin", type: :feature do
     expect(page).to have_no_selector '.alert'
   end
   
-  specify "login with valid information followed by logout" do
+  scenario "login with valid information followed by logout" do
     visit login_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: 'password'

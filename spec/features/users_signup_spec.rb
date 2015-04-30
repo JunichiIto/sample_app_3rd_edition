@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature "UsersSignup", type: :feature do
-  before do
+  background do
     ActionMailer::Base.deliveries.clear
   end
 
-  specify "invalid signup information" do
+  scenario "invalid signup information" do
     visit signup_path
     fill_in 'Name', with: ""
     fill_in 'Email', with: "user@invalid"
@@ -15,7 +15,7 @@ RSpec.feature "UsersSignup", type: :feature do
     expect(page).to have_selector 'h1', text: 'Sign up'
   end
 
-  specify "valid signup information" do
+  scenario "valid signup information" do
     visit signup_path
     fill_in 'Name', with: "Example User"
     fill_in 'Email', with: "user@example.com"

@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.feature "UsersProfile", type: :feature do
   include ApplicationHelper
 
-  let(:user) { create :michael_with_microposts }
+  given(:user) { create :michael_with_microposts }
 
-  specify "profile display" do
+  scenario "profile display" do
     visit user_path(user)
     expect(page).to have_selector 'h1', text: user.name
     expect(page).to have_title full_title(user.name)

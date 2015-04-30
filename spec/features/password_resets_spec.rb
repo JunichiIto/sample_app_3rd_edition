@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.feature "PasswordResets", type: :feature do
-  let(:user) { create :michael }
+  given(:user) { create :michael }
   
-  before do
+  background do
     ActionMailer::Base.deliveries.clear
   end
 
-  specify "password resets" do
+  scenario "password resets" do
     visit new_password_reset_path
     expect(page).to have_selector 'h1', 'Forgot password'
     # Invalid email

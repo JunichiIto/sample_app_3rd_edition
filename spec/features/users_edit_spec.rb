@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "UsersEdit", type: :feature do
-  let(:user) { create :michael }
+  given(:user) { create :michael }
   
-  specify "unsuccessful edit" do
+  scenario "unsuccessful edit" do
     log_in_as(user)
     visit edit_user_path(user)
     expect(page).to have_selector 'h1', text: 'Update your profile'
@@ -15,7 +15,7 @@ RSpec.feature "UsersEdit", type: :feature do
     expect(page).to have_selector 'h1', text: 'Update your profile'
   end
 
-  specify "successful edit with friendly forwarding" do
+  scenario "successful edit with friendly forwarding" do
     visit edit_user_path(user)
     log_in_as(user)
     expect(current_path).to eq edit_user_path(user)

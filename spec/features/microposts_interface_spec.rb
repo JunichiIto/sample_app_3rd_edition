@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "MicropostsInterface", type: :feature do
-  let(:user) { create :michael_with_microposts }
+  given(:user) { create :michael_with_microposts }
 
-  specify "micropost interface" do
+  scenario "micropost interface" do
     log_in_as(user)
     visit root_path
     expect(page).to have_selector 'div.pagination'
