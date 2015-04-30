@@ -6,16 +6,16 @@ RSpec.describe Relationship, type: :model do
   end
 
   specify "should be valid" do
-    expect(@relationship.valid?).to be_truthy
+    expect(@relationship).to be_valid
   end
 
   specify "should require a follower_id" do
     @relationship.follower_id = nil
-    expect(@relationship.valid?).to be_falsey
+    expect(@relationship).to be_invalid
   end
 
   specify "should require a followed_id" do
     @relationship.followed_id = nil
-    expect(@relationship.valid?).to be_falsey
+    expect(@relationship).to be_invalid
   end
 end

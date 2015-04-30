@@ -26,7 +26,7 @@ RSpec.feature "MicropostsInterface", type: :feature do
     # Visit a different user.
     archer = FactoryGirl.create :archer_with_microposts
     visit user_path(archer)
-    expect(archer.microposts.empty?).to be_falsey
+    expect(archer.microposts).to be_present
     expect(page).to have_no_link 'delete'
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
   end
 
   specify 'should be valid' do
-    expect(@user.valid?).to be_truthy
+    expect(@user).to be_valid
   end
 
   specify 'name should be present' do
@@ -16,24 +16,24 @@ RSpec.describe User, type: :model do
 
   specify 'email should be present' do
     @user.email = ' '
-    expect(@user.valid?).to be_falsey
+    expect(@user).to be_invalid
   end
 
   specify 'name should not be too long' do
     @user.name = 'a' * 51
-    expect(@user.valid?).to be_falsey
+    expect(@user).to be_invalid
   end
 
   specify 'email should not be too long' do
     @user.email = 'a' * 244 + '@example.com'
-    expect(@user.valid?).to be_falsey
+    expect(@user).to be_invalid
   end
 
   specify 'email validation should accept valid addresses' do
     valid_addresses = %w[user@example.com USER@foo.COM A_USE-ER@foo.bar.org first.last@foo.jp alice+bob@baz.cn]
     valid_addresses.each do |valid_address|
       @user.email = valid_address
-      expect(@user.valid?).to be_truthy, "#{valid_address.inspect} should be valid"
+      expect(@user).to be_valid, "#{valid_address.inspect} should be valid"
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com]
     invalid_addresses.each do |invalid_address|
       @user.email = invalid_address
-      expect(@user.valid?).to be_falsey, "#{invalid_address.inspect} should be invalid"
+      expect(@user).to be_invalid, "#{invalid_address.inspect} should be invalid"
     end
   end
 
@@ -49,16 +49,16 @@ RSpec.describe User, type: :model do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
     @user.save
-    expect(duplicate_user.valid?).to be_falsey
+    expect(duplicate_user).to be_invalid
   end
 
   specify 'password should have a minimum length' do
     @user.password = @user.password_confirmation = 'a' * 5
-    expect(@user.valid?).to be_falsey
+    expect(@user).to be_invalid
   end
 
   specify 'authenticated? should return false for a user with nil digest' do
-    expect(@user.authenticated?(:remember, '')).to be_falsey
+    expect(@user).to_not be_authenticated(:remember, '')
   end
 
   specify 'associated microposts should be destroyed' do
@@ -70,12 +70,12 @@ RSpec.describe User, type: :model do
   specify 'should follow and unfollow a user' do
     michael = FactoryGirl.create :michael
     archer = FactoryGirl.create :archer
-    expect(michael.following?(archer)).to be_falsey
+    expect(michael).to_not be_following(archer)
     michael.follow(archer)
-    expect(michael.following?(archer)).to be_truthy
+    expect(michael).to be_following(archer)
     expect(archer.followers.include?(michael)).to be_truthy
     michael.unfollow(archer)
-    expect(michael.following?(archer)).to be_falsey
+    expect(michael).to_not be_following(archer)
   end
   
   specify 'feed should have the right posts' do
@@ -85,9 +85,9 @@ RSpec.describe User, type: :model do
 
     FactoryGirl.create :one
 
-    expect(michael.microposts.empty?).to be_falsey
-    expect(archer.microposts.empty?).to be_falsey
-    expect(lana.microposts.empty?).to be_falsey
+    expect(michael.microposts).to be_present
+    expect(archer.microposts).to be_present
+    expect(lana.microposts).to be_present
 
     lana.microposts.each do |post_following|
       expect(michael.feed.include?(post_following)).to be_truthy

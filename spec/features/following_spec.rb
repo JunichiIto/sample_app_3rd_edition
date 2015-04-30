@@ -14,7 +14,7 @@ RSpec.feature "Following", type: :feature do
 
   specify "following page" do
     visit following_user_path(@user)
-    expect(@user.following.empty?).to be_falsey
+    expect(@user.following).to be_present
     expect(page).to have_content @user.following.count
     @user.following.each do |user|
       expect(page).to have_link nil, user_path(user)
@@ -23,7 +23,7 @@ RSpec.feature "Following", type: :feature do
 
   specify "followers page" do
     visit followers_user_path(@user)
-    expect(@user.followers.empty?).to be_falsey
+    expect(@user.followers).to be_present
     expect(page).to have_content @user.followers.count
     @user.followers.each do |user|
       expect(page).to have_link nil, user_path(user)

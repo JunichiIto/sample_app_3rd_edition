@@ -24,7 +24,7 @@ RSpec.feature "UsersSignup", type: :feature do
     expect { click_button 'Create my account' }.to change { User.count }.by(1)
     expect(ActionMailer::Base.deliveries.size).to eq 1
     user = User.last
-    expect(user.activated?).to be_falsey
+    expect(user).to_not be_activated
     # Try to log in before activation.
     log_in_as(user)
     expect(is_logged_in?).to be_falsey
@@ -38,7 +38,7 @@ RSpec.feature "UsersSignup", type: :feature do
     visit edit_account_activation_path(activation_token, email: 'wrong')
     expect(is_logged_in?).to be_falsey
     visit edit_account_activation_path(activation_token, email: user.email)
-    expect(user.reload.activated?).to be_truthy
+    expect(user.reload).to be_activated
     expect(page).to have_selector 'h1', text: user.name
     expect(is_logged_in?).to be_truthy
   end

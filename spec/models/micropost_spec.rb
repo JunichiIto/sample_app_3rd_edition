@@ -7,22 +7,22 @@ RSpec.describe Micropost, type: :model do
   end
 
   specify "should be valid" do
-    expect(@micropost.valid?).to be_truthy
+    expect(@micropost).to be_valid
   end
   
   specify "user id should be present" do
     @micropost.user_id = nil
-    expect(@micropost.valid?).to be_falsey
+    expect(@micropost).to be_invalid
   end
 
   specify "content should be present" do
     @micropost.content = "   "
-    expect(@micropost.valid?).to be_falsey
+    expect(@micropost).to be_invalid
   end
 
   specify "content should be at most 140 characters" do
     @micropost.content = "a" * 141
-    expect(@micropost.valid?).to be_falsey
+    expect(@micropost).to be_invalid
   end
 
   specify "order should be most recent first" do
