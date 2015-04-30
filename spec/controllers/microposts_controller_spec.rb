@@ -1,14 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe MicropostsController, type: :controller do
-  let!(:micropost) { create :orange }
-
   specify "should redirect create when not logged in" do
     expect { post :create, micropost: { content: "Lorem ipsum" } }.to_not change { Micropost.count }
     expect(response).to redirect_to login_url
   end
 
   specify "should redirect destroy when not logged in" do
+    micropost = create :orange
     expect { delete :destroy, id: micropost }.to_not change { Micropost.count }
     expect(response).to redirect_to login_url
   end
