@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-  before do
-    @user = create :michael
-  end
+  let(:user) { create :michael }
 
   specify "should get new" do
     get :new
@@ -11,7 +9,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   specify "login with valid information followed by logout" do
-    post :create, session: { email: @user.email, password: 'password' }
+    post :create, session: { email: user.email, password: 'password' }
     expect(is_logged_in?).to be_truthy
 
     delete :destroy
@@ -23,12 +21,12 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   specify "login with remembering" do
-    post :create, session: { email: @user.email, password: 'password', remember_me: '1' }
+    post :create, session: { email: user.email, password: 'password', remember_me: '1' }
     expect(cookies['remember_token']).to_not be_nil
   end
 
   specify "login without remembering" do
-    post :create, session: { email: @user.email, password: 'password', remember_me: '0' }
+    post :create, session: { email: user.email, password: 'password', remember_me: '0' }
     expect(cookies['remember_token']).to be_nil
   end
 end

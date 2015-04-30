@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature "PasswordResets", type: :feature do
+  let(:user) { create :michael }
+  
   before do
     ActionMailer::Base.deliveries.clear
-    @user = create :michael
   end
 
   specify "password resets" do
@@ -15,10 +16,10 @@ RSpec.feature "PasswordResets", type: :feature do
     expect(page).to have_selector '.alert'
     expect(page).to have_selector 'h1', 'Forgot password'
     # Valid email
-    fill_in 'Email', with: @user.email
+    fill_in 'Email', with: user.email
     click_button 'Submit'
-    old_digest = @user.reset_digest
-    expect(@user.reload.reset_digest).to_not eq old_digest
+    old_digest = user.reset_digest
+    expect(user.reload.reset_digest).to_not eq old_digest
     expect(ActionMailer::Base.deliveries.size).to eq 1
     expect(page).to have_selector '.alert'
     expect(current_url).to eq root_url
@@ -29,18 +30,18 @@ RSpec.feature "PasswordResets", type: :feature do
     visit edit_password_reset_path(reset_token, email: "")
     expect(current_url).to eq root_url
     # Inactive user
-    @user.toggle!(:activated)
-    visit edit_password_reset_path(reset_token, email: @user.email)
+    user.toggle!(:activated)
+    visit edit_password_reset_path(reset_token, email: user.email)
     expect(current_url).to eq root_url
-    @user.toggle!(:activated)
+    user.toggle!(:activated)
     # Right email, wrong token
-    visit edit_password_reset_path('wrong token', email: @user.email)
+    visit edit_password_reset_path('wrong token', email: user.email)
     expect(current_url).to eq root_url
     # Right email, right token
-    visit edit_password_reset_path(reset_token, email: @user.email)
+    visit edit_password_reset_path(reset_token, email: user.email)
     expect(page).to have_selector 'h1', 'Reset password'
     hidden_email = find 'input[name=email][type=hidden]'
-    expect(hidden_email.value).to eq @user.email
+    expect(hidden_email.value).to eq user.email
     # Invalid password & confirmation
     fill_in 'Password', with: "foobaz"
     fill_in 'Confirmation', with: "barquux"
@@ -58,6 +59,6 @@ RSpec.feature "PasswordResets", type: :feature do
     click_button 'Update password'
     expect(is_logged_in?).to be_truthy
     expect(page).to have_selector '.alert'
-    expect(current_path).to eq user_path(@user)
+    expect(current_path).to eq user_path(user)
   end
 end

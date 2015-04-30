@@ -1,12 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature "MicropostsInterface", type: :feature do
-  before do
-    @user = create :michael_with_microposts
-  end
+  let(:user) { create :michael_with_microposts }
 
   specify "micropost interface" do
-    log_in_as(@user)
+    log_in_as(user)
     visit root_path
     expect(page).to have_selector 'div.pagination'
     # Invalid submission
@@ -21,7 +19,7 @@ RSpec.feature "MicropostsInterface", type: :feature do
     expect(page).to have_content content
     # Delete a post.
     expect(page).to have_link 'delete'
-    first_micropost = @user.microposts.paginate(page: 1).first
+    first_micropost = user.microposts.paginate(page: 1).first
     expect { click_link 'delete', href: micropost_path(first_micropost) }.to change { Micropost.count }.by(-1)
     # Visit a different user.
     archer = create :archer_with_microposts

@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature "UsersEdit", type: :feature do
-  before do
-    @user = create :michael
-  end
+  let(:user) { create :michael }
   
   specify "unsuccessful edit" do
-    log_in_as(@user)
-    visit edit_user_path(@user)
+    log_in_as(user)
+    visit edit_user_path(user)
     expect(page).to have_selector 'h1', text: 'Update your profile'
     fill_in 'Name', with: ""
     fill_in 'Email', with: "user@invalid"
@@ -18,9 +16,9 @@ RSpec.feature "UsersEdit", type: :feature do
   end
 
   specify "successful edit with friendly forwarding" do
-    visit edit_user_path(@user)
-    log_in_as(@user)
-    expect(current_path).to eq edit_user_path(@user)
+    visit edit_user_path(user)
+    log_in_as(user)
+    expect(current_path).to eq edit_user_path(user)
     name  = "Foo Bar"
     email = "foo@bar.com"
     fill_in 'Name', with: name
@@ -29,9 +27,9 @@ RSpec.feature "UsersEdit", type: :feature do
     fill_in 'Confirmation', with: ""
     click_button 'Save changes'
     expect(page).to have_selector '.alert'
-    expect(current_path).to eq user_path(@user)
-    @user.reload
-    expect(@user.name).to eq name
-    expect(@user.email).to eq email
+    expect(current_path).to eq user_path(user)
+    user.reload
+    expect(user.name).to eq name
+    expect(user.email).to eq email
   end
 end

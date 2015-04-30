@@ -1,10 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe RelationshipsController, type: :controller do
-  before do
-    @user = create :michael
-    @other = create :archer
-  end
+  let(:user) { create :michael }
+  let(:other) { create :archer }
   
   specify "should redirect create when not logged in" do
     expect { post :create }.to_not change { Relationship.count }
@@ -18,14 +16,14 @@ RSpec.describe RelationshipsController, type: :controller do
   end
 
   specify "should follow a user with Ajax" do
-    log_in_as(@user)
-    expect { xhr :post, :create, followed_id: @other.id }.to change { @user.following.count }.by(1)
+    log_in_as(user)
+    expect { xhr :post, :create, followed_id: other.id }.to change { user.following.count }.by(1)
   end
 
   specify "should unfollow a user with Ajax" do
-    @user.follow(@other)
-    relationship = @user.active_relationships.find_by(followed_id: @other.id)
-    log_in_as(@user)
-    expect { xhr :delete, :destroy, id: relationship.id }.to change { @user.following.count }.by(-1)
+    user.follow(other)
+    relationship = user.active_relationships.find_by(followed_id: other.id)
+    log_in_as(user)
+    expect { xhr :delete, :destroy, id: relationship.id }.to change { user.following.count }.by(-1)
   end
 end
