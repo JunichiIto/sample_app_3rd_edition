@@ -6,12 +6,10 @@ RSpec.feature "Following", type: :feature do
     @other = FactoryGirl.create :archer
     log_in_as(@user)
 
-    lana = FactoryGirl.create :lana
-    mallory = FactoryGirl.create :mallory
-    @user.follow(lana)
-    @user.follow(mallory)
-    lana.follow(@user)
-    @other.follow(@user)
+    FactoryGirl.create :one
+    FactoryGirl.create :two
+    FactoryGirl.create :three
+    FactoryGirl.create :four
   end
 
   specify "following page" do

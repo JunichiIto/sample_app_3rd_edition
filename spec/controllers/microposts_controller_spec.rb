@@ -16,7 +16,7 @@ RSpec.describe MicropostsController, type: :controller do
   end
 
   specify "should redirect destroy for wrong micropost" do
-    user = @micropost.user # returns michael
+    user = FactoryGirl.create :michael
     log_in_as(user)
     ants = FactoryGirl.create :ants
     expect { delete :destroy, id: ants }.to_not change { Micropost.count }

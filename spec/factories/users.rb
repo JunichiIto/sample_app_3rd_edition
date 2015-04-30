@@ -10,6 +10,7 @@ FactoryGirl.define do
     password_confirmation 'password'
     activated true
     activated_at Time.zone.now
+    initialize_with { User.find_or_create_by(email: email) }
 
     factory :michael do
       name 'Michael Example'

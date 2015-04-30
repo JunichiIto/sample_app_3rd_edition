@@ -83,7 +83,7 @@ RSpec.describe User, type: :model do
     archer = FactoryGirl.create :archer_with_microposts
     lana = FactoryGirl.create :lana_with_microposts
 
-    michael.follow(lana)
+    FactoryGirl.create :one
 
     expect(michael.microposts.count).to be > 0
     expect(archer.microposts.count).to be > 0
