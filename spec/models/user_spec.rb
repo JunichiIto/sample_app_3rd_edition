@@ -85,9 +85,9 @@ RSpec.describe User, type: :model do
 
     FactoryGirl.create :one
 
-    expect(michael.microposts.count).to be > 0
-    expect(archer.microposts.count).to be > 0
-    expect(lana.microposts.count).to be > 0
+    expect(michael.microposts.empty?).to be_falsey
+    expect(archer.microposts.empty?).to be_falsey
+    expect(lana.microposts.empty?).to be_falsey
 
     lana.microposts.each do |post_following|
       expect(michael.feed.include?(post_following)).to be_truthy
