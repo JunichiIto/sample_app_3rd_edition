@@ -85,9 +85,7 @@ RSpec.describe User, type: :model do
 
     create :one
 
-    expect(michael.microposts).to be_present
-    expect(archer.microposts).to be_present
-    expect(lana.microposts).to be_present
+    expect([michael.microposts, archer.microposts, lana.microposts]).to all be_present
 
     lana.microposts.each do |post_following|
       expect(michael.feed).to include post_following
