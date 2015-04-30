@@ -15,15 +15,19 @@ RSpec.describe RelationshipsController, type: :controller do
     expect(response).to redirect_to login_url
   end
 
-  specify "should follow a user with Ajax" do
-    log_in_as(user)
-    expect { xhr :post, :create, followed_id: other.id }.to change { user.following.count }.by(1)
-  end
+  context 'when logged in' do
+    before do
+      log_in_as(user)
+    end
 
-  specify "should unfollow a user with Ajax" do
-    user.follow(other)
-    relationship = user.active_relationships.find_by(followed_id: other.id)
-    log_in_as(user)
-    expect { xhr :delete, :destroy, id: relationship.id }.to change { user.following.count }.by(-1)
+    specify "should follow a user with Ajax" do
+      expect { xhr :post, :create, followed_id: other.id }.to change { user.following.count }.by(1)
+    end
+
+    specify "should unfollow a user with Ajax" do
+      user.follow(other)
+      relationship = user.active_relationships.find_by(followed_id: other.id)
+      expect { xhr :delete, :destroy, id: relationship.id }.to change { user.following.count }.by(-1)
+    end
   end
 end
