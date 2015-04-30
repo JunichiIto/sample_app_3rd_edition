@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe UserMailer, type: :mailer do
+  let(:user) { create :michael }
+
   specify "account_activation" do
-    user = create :michael
     user.activation_token = User.new_token
     mail = UserMailer.account_activation(user)
     expect(mail).to have_attributes subject: "Account activation", to: [user.email], from: ["noreply@example.com"]
@@ -12,7 +13,6 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   specify "password_reset" do
-    user = create :michael
     user.reset_token = User.new_token
     mail = UserMailer.password_reset(user)
     expect(mail).to have_attributes subject: "Password reset", to: [user.email], from: ["noreply@example.com"]
