@@ -28,8 +28,6 @@ RSpec.feature "UsersEdit", type: :feature do
     click_button 'Save changes'
     expect(page).to have_selector '.alert'
     expect(current_path).to eq user_path(user)
-    user.reload
-    expect(user.name).to eq name
-    expect(user.email).to eq email
+    expect(user.reload).to have_attributes name: name, email: email
   end
 end
