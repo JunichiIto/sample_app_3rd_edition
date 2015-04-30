@@ -13,7 +13,7 @@ RSpec.feature "PasswordResets", type: :feature do
     # Invalid email
     fill_in 'Email', with: ""
     click_button 'Submit'
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     expect(page).to have_selector 'h1', 'Forgot password'
     # Valid email
     fill_in 'Email', with: user.email
@@ -21,7 +21,7 @@ RSpec.feature "PasswordResets", type: :feature do
     old_digest = user.reset_digest
     expect(user.reload.reset_digest).to_not eq old_digest
     expect(ActionMailer::Base.deliveries.size).to eq 1
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     expect(current_url).to eq root_url
     # Password reset form
     mail = ActionMailer::Base.deliveries.last
@@ -51,14 +51,14 @@ RSpec.feature "PasswordResets", type: :feature do
     fill_in 'Password', with: "  "
     fill_in 'Confirmation', with: "foobar"
     click_button 'Update password'
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     expect(page).to have_selector 'h1', 'Reset password'
     # Valid password & confirmation
     fill_in 'Password', with: "foobaz"
     fill_in 'Confirmation', with: "foobaz"
     click_button 'Update password'
     expect(is_logged_in?).to be_truthy
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     expect(current_path).to eq user_path(user)
   end
 end

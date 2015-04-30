@@ -10,9 +10,9 @@ RSpec.feature "UsersLogin", type: :feature do
     fill_in 'Password', with: ""
     click_button 'Log in'
     expect(page).to have_selector 'h1', text: 'Log in'
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     visit root_path
-    expect(page).to have_no_selector '.alert'
+    expect(page).to have_no_flash_message
   end
   
   scenario "login with valid information followed by logout" do
