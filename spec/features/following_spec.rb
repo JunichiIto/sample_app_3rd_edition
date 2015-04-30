@@ -18,7 +18,7 @@ RSpec.feature "Following", type: :feature do
     expect(user.following).to be_present
     expect(page).to have_content user.following.count
     user.following.each do |user|
-      expect(page).to have_link nil, user_path(user)
+      expect(page).to have_link nil, href: user_path(user)
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.feature "Following", type: :feature do
     expect(user.followers).to be_present
     expect(page).to have_content user.followers.count
     user.followers.each do |user|
-      expect(page).to have_link nil, user_path(user)
+      expect(page).to have_link nil, href: user_path(user)
     end
   end
 
