@@ -17,7 +17,7 @@ RSpec.feature "UsersIndex", type: :feature do
       expect(page).to have_link user.name, href: user_path(user)
       unless user == @admin
         # TODO Check data-method attribute
-        expect(page).to have_link 'delete', user_path(user)
+        expect(page).to have_link 'delete', href: user_path(user)
       end
     end
     expect { click_link 'delete', href: user_path(@non_admin) }.to change { User.count }.by(-1)
