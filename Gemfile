@@ -38,6 +38,7 @@ group :test do
 
   gem 'database_cleaner', '1.4.1'
   gem 'capybara', '2.4.4'
+  gem 'simplecov', '0.9.2'
 end
 
 group :production do
