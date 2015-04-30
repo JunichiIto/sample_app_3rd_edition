@@ -90,15 +90,15 @@ RSpec.describe User, type: :model do
     expect(lana.microposts).to be_present
 
     lana.microposts.each do |post_following|
-      expect(michael.feed.include?(post_following)).to be_truthy
+      expect(michael.feed).to include post_following
     end
   
     michael.microposts.each do |post_self|
-      expect(michael.feed.include?(post_self)).to be_truthy
+      expect(michael.feed).to include post_self
     end
   
     archer.microposts.each do |post_unfollowed|
-      expect(michael.feed.include?(post_unfollowed)).to be_falsey
+      expect(michael.feed).to_not include post_unfollowed
     end
   end
 end
