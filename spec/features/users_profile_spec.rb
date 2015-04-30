@@ -4,7 +4,7 @@ RSpec.feature "UsersProfile", type: :feature do
   include ApplicationHelper
 
   before do
-    @user = FactoryGirl.create :michael_with_microposts
+    @user = create :michael_with_microposts
   end
 
   specify "profile display" do

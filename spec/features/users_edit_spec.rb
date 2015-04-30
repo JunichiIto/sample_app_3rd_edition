@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "UsersEdit", type: :feature do
   before do
-    @user = FactoryGirl.create :michael
+    @user = create :michael
   end
   
   specify "unsuccessful edit" do

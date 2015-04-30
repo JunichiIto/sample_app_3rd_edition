@@ -71,4 +71,5 @@ RSpec.configure do |config|
   end
 
   config.include LoginMacros
+  config.include FactoryGirl::Syntax::Methods
 end

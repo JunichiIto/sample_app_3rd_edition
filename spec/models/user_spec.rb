@@ -68,8 +68,8 @@ RSpec.describe User, type: :model do
   end
   
   specify 'should follow and unfollow a user' do
-    michael = FactoryGirl.create :michael
-    archer = FactoryGirl.create :archer
+    michael = create :michael
+    archer = create :archer
     expect(michael).to_not be_following(archer)
     michael.follow(archer)
     expect(michael).to be_following(archer)
@@ -79,11 +79,11 @@ RSpec.describe User, type: :model do
   end
   
   specify 'feed should have the right posts' do
-    michael = FactoryGirl.create :michael_with_microposts
-    archer = FactoryGirl.create :archer_with_microposts
-    lana = FactoryGirl.create :lana_with_microposts
+    michael = create :michael_with_microposts
+    archer = create :archer_with_microposts
+    lana = create :lana_with_microposts
 
-    FactoryGirl.create :one
+    create :one
 
     expect(michael.microposts).to be_present
     expect(archer.microposts).to be_present

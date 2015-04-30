@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.feature "UsersIndex", type: :feature do
   before do 
-    @admin = FactoryGirl.create :michael
-    @non_admin = FactoryGirl.create :archer
-    FactoryGirl.create_list :user, 30
+    @admin = create :michael
+    @non_admin = create :archer
+    create_list :user, 30
   end
   
   specify "index as admin including pagination and delete links" do

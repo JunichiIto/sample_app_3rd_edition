@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "UsersLogin", type: :feature do
   before do
-    @user = FactoryGirl.create :michael
+    @user = create :michael
   end
 
   specify "login with invalid information" do

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
   before do
-    @user = FactoryGirl.create :michael
-    @other_user = FactoryGirl.create :archer
+    @user = create :michael
+    @other_user = create :archer
   end
 
   specify "should redirect index when not logged in" do

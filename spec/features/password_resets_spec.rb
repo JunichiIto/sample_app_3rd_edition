@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "PasswordResets", type: :feature do
   before do
     ActionMailer::Base.deliveries.clear
-    @user = FactoryGirl.create :michael
+    @user = create :michael
   end
 
   specify "password resets" do

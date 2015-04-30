@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "MicropostsInterface", type: :feature do
   before do
-    @user = FactoryGirl.create :michael_with_microposts
+    @user = create :michael_with_microposts
   end
 
   specify "micropost interface" do
@@ -24,7 +24,7 @@ RSpec.feature "MicropostsInterface", type: :feature do
     first_micropost = @user.microposts.paginate(page: 1).first
     expect { click_link 'delete', href: micropost_path(first_micropost) }.to change { Micropost.count }.by(-1)
     # Visit a different user.
-    archer = FactoryGirl.create :archer_with_microposts
+    archer = create :archer_with_microposts
     visit user_path(archer)
     expect(archer.microposts).to be_present
     expect(page).to have_no_link 'delete'

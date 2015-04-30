@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.feature "Following", type: :feature do
   before do
-    @user = FactoryGirl.create :michael
-    @other = FactoryGirl.create :archer
+    @user = create :michael
+    @other = create :archer
     log_in_as(@user)
 
-    FactoryGirl.create :one
-    FactoryGirl.create :two
-    FactoryGirl.create :three
-    FactoryGirl.create :four
+    create :one
+    create :two
+    create :three
+    create :four
   end
 
   specify "following page" do

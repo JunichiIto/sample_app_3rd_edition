@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   before do
-    @user = FactoryGirl.create :michael
+    @user = create :michael
   end
 
   specify "should get new" do
