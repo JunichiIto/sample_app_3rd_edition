@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Micropost, type: :model do
-  let!(:user) { users(:michael) }
+  let(:user) { users(:michael) }
   let(:micropost) { user.microposts.build(content: "Lorem ipsum") }
 
   specify "should be valid" do
