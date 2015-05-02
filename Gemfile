@@ -28,7 +28,6 @@ group :development, :test do
   gem 'spring',      '1.1.3'
 
   gem 'rspec-rails', '3.2.1'
-  gem 'factory_girl_rails', '4.5.0'
 end
 
 group :test do

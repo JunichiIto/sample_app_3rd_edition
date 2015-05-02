@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  let!(:user) { create :michael }
-  let(:other_user) { create :archer }
+  let!(:user) { users(:michael) }
+  let(:other_user) { users(:archer) }
 
   specify "should redirect index when not logged in" do
     get :index

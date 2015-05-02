@@ -7,15 +7,15 @@ RSpec.describe MicropostsController, type: :controller do
   end
 
   specify "should redirect destroy when not logged in" do
-    micropost = create :orange
+    micropost = microposts(:orange)
     expect { delete :destroy, id: micropost }.to_not change { Micropost.count }
     expect(response).to redirect_to login_url
   end
 
   specify "should redirect destroy for wrong micropost" do
-    user = create :michael
+    user = users(:michael)
     log_in_as(user)
-    ants = create :ants
+    ants = microposts(:ants)
     expect { delete :destroy, id: ants }.to_not change { Micropost.count }
   end
 end

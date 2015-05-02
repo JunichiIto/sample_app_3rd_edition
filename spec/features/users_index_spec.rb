@@ -1,13 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "UsersIndex", type: :feature do
-  given(:admin) { create :michael }
-  given!(:non_admin) { create :archer }
-  
-  background do
-    create_list :user, 30
-  end
-  
+  given(:admin) { users(:michael) }
+  given!(:non_admin) { users(:archer) }
+
   scenario "index as admin including pagination and delete links" do
     log_in_as(admin)
     visit users_path

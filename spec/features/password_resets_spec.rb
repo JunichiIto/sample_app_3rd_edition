@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "PasswordResets", type: :feature do
-  given(:user) { create :michael }
+  given(:user) { users(:michael) }
   
   background do
     ActionMailer::Base.deliveries.clear

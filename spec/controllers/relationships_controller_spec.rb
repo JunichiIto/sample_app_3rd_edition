@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe RelationshipsController, type: :controller do
-  let(:user) { create :michael }
-  let(:other) { create :archer }
+  let(:user) { users(:michael) }
+  let(:other) { users(:archer) }
   
   specify "should redirect create when not logged in" do
     expect { post :create }.to_not change { Relationship.count }
@@ -10,7 +10,7 @@ RSpec.describe RelationshipsController, type: :controller do
   end
 
   specify "should redirect destroy when not logged in" do
-    one = create :one
+    one = relationships(:one)
     expect { delete :destroy, id: one }.to_not change { Relationship.count }
     expect(response).to redirect_to login_url
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SessionsHelper, type: :helper do
-  let(:user) { create :michael }
+  let(:user) { users(:michael) }
   
   before do
     remember(user)

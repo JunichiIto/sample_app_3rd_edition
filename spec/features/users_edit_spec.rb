@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "UsersEdit", type: :feature do
-  given(:user) { create :michael }
+  given(:user) { users(:michael) }
   
   scenario "unsuccessful edit" do
     log_in_as(user)

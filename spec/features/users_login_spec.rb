@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "UsersLogin", type: :feature do
-  given(:user) { create :michael }
+  given(:user) { users(:michael) }
 
   scenario "login with invalid information" do
     visit login_path

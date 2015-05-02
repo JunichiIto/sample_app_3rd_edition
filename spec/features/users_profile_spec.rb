@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "UsersProfile", type: :feature do
   include ApplicationHelper
 
-  given(:user) { create :michael_with_microposts }
+  given(:user) { users(:michael) }
 
   scenario "profile display" do
     visit user_path(user)

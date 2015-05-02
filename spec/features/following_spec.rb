@@ -1,16 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature "Following", type: :feature do
-  given(:user) { create :michael }
-  given(:other) { create :archer }
+  given(:user) { users(:michael) }
+  given(:other) { users(:archer) }
 
   background do
     log_in_as(user)
-
-    create :one
-    create :two
-    create :three
-    create :four
   end
 
   scenario "following page" do

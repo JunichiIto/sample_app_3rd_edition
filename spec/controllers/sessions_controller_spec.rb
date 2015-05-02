@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-  let(:user) { create :michael }
+  let(:user) { users(:michael) }
 
   specify "should get new" do
     get :new
