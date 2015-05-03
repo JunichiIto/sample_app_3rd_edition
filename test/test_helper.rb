@@ -11,7 +11,11 @@ class ActiveSupport::TestCase
 
   # Returns true if a test user is logged in.
   def is_logged_in?
-    !session[:user_id].nil?
+    if feature_test?
+      has_link? 'Log out'
+    else
+      !session[:user_id].nil?
+    end
   end
   
   # Logs in a test user.
@@ -22,6 +26,14 @@ class ActiveSupport::TestCase
       post login_path, session: { email:       user.email,
                                   password:    password,
                                   remember_me: remember_me }
+    elsif feature_test?
+      visit login_path
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: password
+      if remember_me == '1'
+        check 'Remember me on this computer'
+      end
+      click_button 'Log in'
     else
       session[:user_id] = user.id
     end
@@ -32,5 +44,9 @@ class ActiveSupport::TestCase
     # Returns true inside an integration test.
     def integration_test?
       defined?(post_via_redirect)
+    end
+
+    def feature_test?
+      self.is_a? Capybara::Rails::TestCase
     end
 end
