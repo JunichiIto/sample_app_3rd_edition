@@ -17,11 +17,17 @@ gem 'turbolinks',              '2.3.0'
 gem 'jbuilder',                '2.2.3'
 gem 'sdoc',                    '0.4.0', group: :doc
 
+group :development do
+  gem 'spring-commands-rspec', '1.0.4'
+end
+
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'
   gem 'web-console', '2.0.0.beta3'
   gem 'spring',      '1.1.3'
+
+  gem 'rspec-rails', '3.2.1'
 end
 
 group :test do
@@ -29,6 +35,11 @@ group :test do
   # gem 'mini_backtrace',     '0.1.3'
   gem 'mini_backtrace', github: 'JunichiIto/mini_backtrace', branch: 'fix-backtrace_cleaner-undefined-issue'
   gem 'guard-minitest',     '2.3.1'
+
+  gem 'database_cleaner', '1.4.1'
+  gem 'capybara', '2.4.4'
+  gem 'simplecov', '0.10.0'
+  gem 'poltergeist', '1.6.0'
   gem 'minitest-rails',     '2.1.1'
 end
 
