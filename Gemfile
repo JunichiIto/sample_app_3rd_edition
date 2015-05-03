@@ -32,7 +32,7 @@ end
 
 group :test do
   gem 'minitest-reporters', '1.0.5'
-  # gem 'mini_backtrace',     '0.1.3'
+  # gem 'mini_backtrace', '0.1.3'
   gem 'mini_backtrace', github: 'JunichiIto/mini_backtrace', branch: 'fix-backtrace_cleaner-undefined-issue'
   gem 'guard-minitest',     '2.3.1'
 
@@ -40,7 +40,8 @@ group :test do
   gem 'capybara', '2.4.4'
   gem 'simplecov', '0.10.0'
   gem 'poltergeist', '1.6.0'
-  gem 'minitest-rails',     '2.1.1'
+  gem 'minitest-rails', '2.1.1'
+  gem 'minitest-rails-capybara', '2.1.1'
 end
 
 group :production do
