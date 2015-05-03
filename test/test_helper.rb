@@ -38,6 +38,10 @@ class ActiveSupport::TestCase
       session[:user_id] = user.id
     end
   end
+
+  def has_flash_message?
+    has_selector? '.alert'
+  end
   
   private
   
