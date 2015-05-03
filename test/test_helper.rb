@@ -9,6 +9,9 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  # Change default host since minitest-rails-capybara uses "test.local" as default
+  Rails.application.routes.default_url_options[:host] = 'www.example.com'
+
   # Returns true if a test user is logged in.
   def is_logged_in?
     if feature_test?
