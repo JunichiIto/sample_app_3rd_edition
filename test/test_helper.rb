@@ -4,13 +4,16 @@ require 'rails/test_help'
 require "minitest/reporters"
 Minitest::Reporters.use!
 require "minitest/rails/capybara"
+require "capybara/poltergeist"
+
+# Change default host since minitest-rails-capybara uses "test.local" as default
+Rails.application.routes.default_url_options[:host] = 'www.example.com'
+
+Capybara.javascript_driver = :poltergeist
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
-
-  # Change default host since minitest-rails-capybara uses "test.local" as default
-  Rails.application.routes.default_url_options[:host] = 'www.example.com'
 
   # Returns true if a test user is logged in.
   def is_logged_in?
@@ -57,3 +60,12 @@ class ActiveSupport::TestCase
       self.is_a? Capybara::Rails::TestCase
     end
 end
+
+class ActiveRecord::Base
+  mattr_accessor :shared_connection
+  @@shared_connection = nil
+  def self.connection
+    @@shared_connection || retrieve_connection
+  end
+end
+ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection

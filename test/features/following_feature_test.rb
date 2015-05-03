@@ -32,27 +32,11 @@ class FollowingFeatureTest < Capybara::Rails::TestCase
     end
   end
 
-  test "should follow a user with Ajax" do
-    skip 'test later'
-    assert_difference '@user.following.count', 1 do
-      xhr :post, relationships_path, followed_id: @other.id
-    end
-  end
-
   test "should unfollow a user the standard way" do
     @user.follow(@other)
     visit user_path(@other)
     assert_difference '@user.following.count', -1 do
       click_button 'Unfollow'
-    end
-  end
-
-  test "should unfollow a user with Ajax" do
-    skip 'test later'
-    @user.follow(@other)
-    relationship = @user.active_relationships.find_by(followed_id: @other.id)
-    assert_difference '@user.following.count', -1 do
-      xhr :delete, relationship_path(relationship)
     end
   end
 end
