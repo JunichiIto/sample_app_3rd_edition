@@ -31,7 +31,7 @@ RSpec.feature "Following", type: :feature do
     expect { click_button 'Follow' }.to change { user.following.count }.by(1)
   end
 
-  specify "should follow a user with Ajax", js: true do
+  scenario "should follow a user with Ajax", js: true do
     visit user_path(other)
     expect { click_button 'Follow'; sleep 0.2 }.to change { user.following.count }.by(1)
   end
@@ -42,7 +42,7 @@ RSpec.feature "Following", type: :feature do
     expect { click_button 'Unfollow' }.to change { user.following.count }.by(-1)
   end
 
-  specify "should unfollow a user with Ajax", js: true do
+  scenario "should unfollow a user with Ajax", js: true do
     user.follow(other)
     visit user_path(other)
     expect { click_button 'Unfollow'; sleep 0.2 }.to change { user.following.count }.by(-1)
